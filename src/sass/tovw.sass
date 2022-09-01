@@ -1,0 +1,7 @@
+@use 'sass:math'
+@function tovw($val)
+    @return math.div($val, 375) * 100vw
+  
+//  375px 螢幕寬度  範例是375  設計稿是375
+//  切版的時候很好用 按照螢幕寬度  自動自適應
+//  所有px 都套用這個語法  width: tovw(500) font-size: tovw(18)

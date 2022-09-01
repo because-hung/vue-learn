@@ -79,7 +79,17 @@
   </div>
 </template>
 <script>
-export default {}
+import _ from 'lodash'
+export default {
+  setup () {
+    const lodashArray = [1, 2, 3, 4, 5, 6]
+
+    const lodashResult = _.chain(lodashArray).filter(i => i > 3).value()
+    console.log(lodashResult) // [4 ,5 ,6]
+    return {
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 *{
