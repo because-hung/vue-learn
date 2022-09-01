@@ -1,5 +1,10 @@
 <template>
   <div>
+    <!-- skypeRedirect -->
+    <div class="skypeRedirectBtn">
+      <button @click="skypeRedirect()">skypeRedirect</button>
+    </div>
+    <br>
     <!--巢狀menu  直+橫-->
     <nav class="main-nav">
       <ul>
@@ -82,11 +87,32 @@
 import _ from 'lodash'
 export default {
   setup () {
+    // lodash
     const lodashArray = [1, 2, 3, 4, 5, 6]
-
     const lodashResult = _.chain(lodashArray).filter(i => i > 3).value()
     console.log(lodashResult) // [4 ,5 ,6]
+
+    // blur + focus 應用 判斷有無安裝應用程式 跳轉
+    // skype 為例子
+    function skypeRedirect () {
+      const downloadUrl = () => {
+        win.location.replace('https://www.skype.com/zh-Hant/get-skype/') // 判斷電腦無安裝應用程式 跳轉安裝網頁
+      }
+      const win = open('skype://account123')
+      const pid = setTimeout(downloadUrl, 100)
+      win.addEventListener('blur', () => {
+        clearTimeout(pid)
+        if (navigator.userAgent.match(/firefox/i)) { // 判斷瀏覽器
+          win.addEventListener('focus', () => {
+            win.close() //
+          })
+        } else {
+          win.addEventListener('focus', downloadUrl)
+        }
+      })
+    }
     return {
+      skypeRedirect
     }
   }
 }
